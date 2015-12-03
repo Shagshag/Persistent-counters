@@ -134,22 +134,26 @@ function stopCounter() {
 }
 
 function resetCounter() {
-    var $line = $(this).parents('tr');
-    counterReset(counters[$line.prop('id')]);
-    $('input.days', $line).val(0);
-    $('input.hours', $line).val(0);
-    $('input.minutes', $line).val(0);
-    $('input.seconds', $line).val(0);
+    if (confirm('Please confirm, there is no undo !')) {
+        var $line = $(this).parents('tr');
+        counterReset(counters[$line.prop('id')]);
+        $('input.days', $line).val(0);
+        $('input.hours', $line).val(0);
+        $('input.minutes', $line).val(0);
+        $('input.seconds', $line).val(0);
+    }
 }
 
 function deleteCounter() {
-    var $line = $(this).parents('tr');
-    counterDelete(counters[$line.prop('id')]);
-    $line.remove();
+    if (confirm('Please confirm, there is no undo !')) {
+        var $line = $(this).parents('tr');
+        counterDelete(counters[$line.prop('id')]);
+        $line.remove();
 
-    if ($.isEmptyObject(counters))
-    {
-        $('#main .add_counter').trigger('click');
+        if ($.isEmptyObject(counters))
+        {
+            $('#main .add_counter').trigger('click');
+        }
     }
 }
 
