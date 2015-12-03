@@ -1,0 +1,25 @@
+<title "Compteurs persistants">
+<help_title "Ce ne sont que des compteurs persistants">
+<help_detail "Ajoutez simplement des compteurs ci-dessous. Si vous quittez cette page, ils continueront à compter. Donc vous pouvez fermer cet onglet et revenir plus tard.">
+
+<error_title "Le stockage local est requis">
+<error_detail "Cet outils ne fonctionnera pas si le stockage local (Localstorage) n'est pas activé.">
+
+<list_name "Nom">
+<list_counter "Compteur">
+<list_actions "Actions">
+
+<counter_name placeholder: "Nom du compteur">
+<counter_days "jours">
+<counter_hours "heures">
+<counter_minutes "minutes">
+<counter_seconds "secondes">
+
+<action_start "Démarrer">
+<action_stop "Stopper">
+<action_reset "Réinitialiser">
+<action_delete "Supprimer">
+<action_add "Ajouter un compteur">
+
+<confirm_reset "Merci de confirmer, il ne sera pas possible d'annuler !">
+<confirm_delete "Merci de confirmer, il ne sera pas possible d'annuler !">

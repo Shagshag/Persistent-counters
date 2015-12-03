@@ -134,7 +134,7 @@ function stopCounter() {
 }
 
 function resetCounter() {
-    if (confirm('Please confirm, there is no undo !')) {
+    if (confirm(document.l10n.getSync('confirm_reset'))) {
         var $line = $(this).parents('tr');
         counterReset(counters[$line.prop('id')]);
         $('input.days', $line).val(0);
@@ -145,7 +145,7 @@ function resetCounter() {
 }
 
 function deleteCounter() {
-    if (confirm('Please confirm, there is no undo !')) {
+    if (confirm(document.l10n.getSync('confirm_delete'))) {
         var $line = $(this).parents('tr');
         counterDelete(counters[$line.prop('id')]);
         $line.remove();
@@ -179,6 +179,7 @@ function countersInitDisplay() {
     for (var id in counters) {
         counterInitDisplay(counters[id]);
     };
+    setInterval(countersUpdateDisplay, 500);
 }
 
 function counterInitDisplay(counter) {
@@ -236,7 +237,6 @@ if (storageAvailable('localStorage'))
             .on('click', '.delete_counter', deleteCounter)
             .on('click', '.add_counter', addCounter);
         getCounters();
-        countersInitDisplay();
-        setInterval(countersUpdateDisplay, 500);
+        document.l10n.ready(countersInitDisplay);
     });
 }

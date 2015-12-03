@@ -1,0 +1,25 @@
+<title "Permanent counters">
+<help_title "This is just persistent counters">
+<help_detail "Just add counters below. If you leave the page, counters will keep counting. So you can close this tab and come back later.">
+
+<error_title "Localstorage is needed">
+<error_detail "This tool will not work if localstorage is not enable.">
+
+<list_name "Name">
+<list_counter "Counter">
+<list_actions "Actions">
+
+<counter_name placeholder: "Counter name">
+<counter_days "days">
+<counter_hours "hours">
+<counter_minutes "minutes">
+<counter_seconds "seconds">
+
+<action_start "Start">
+<action_stop "Stop">
+<action_reset "Reset">
+<action_delete "Delete">
+<action_add "Add a counter">
+
+<confirm_reset "Please confirm, there is no undo !">
+<confirm_delete "Please confirm, there is no undo !">
