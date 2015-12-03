@@ -147,7 +147,7 @@ function resetCounter() {
 
 function deleteCounter() {
     if (confirm(document.l10n.getSync('confirm_delete'))) {
-        var $line = $(this).parents('tr');
+    var $line = $(this).parents('tr');
         counterDelete(counters[$line.prop('id')]);
         $line.remove();
 
@@ -155,7 +155,10 @@ function deleteCounter() {
         {
             $('#main .add_counter').trigger('click');
         } else {
-            counterUpdateButtons(false);
+            var ids = Object.keys(counters);
+            if (ids.length == 1) {
+                counterUpdateButtons(counters[ids[0]]);
+            }
         }
     }
 }
@@ -211,29 +214,25 @@ function counterInitDisplay(counter) {
 }
 
 function counterUpdateButtons(counter) {
-    $('#main .delete_counter').addClass('hide');
+    var $line = $('#' + counter.id);
+    if (counter.pause == 1) {
+        $('.stop_counter, .time_value', $line).addClass('hide');
+        $('.start_counter, time input', $line).removeClass('hide');
 
-    if (counter !== false) {
-        var $line = $('#' + counter.id);
-        if (counter.pause == 1) {
-            $('.stop_counter, .time_value', $line).addClass('hide');
-            $('.start_counter, time input', $line).removeClass('hide');
-
-            var time = getCounterTime(counter);
-            if (time.days + time.hours + time.minutes + time.seconds == 0) {
-                $('.reset_counter', $line).addClass('hide');
-                if ((counter.name == '') && Object.keys(counters).length == 1) {
-                    $('.delete_counter', $line).addClass('hide');
-                } else {
-                    $('.delete_counter', $line).removeClass('hide');
-                }
+        var time = getCounterTime(counter);
+        if (time.days + time.hours + time.minutes + time.seconds == 0) {
+            $('.reset_counter', $line).addClass('hide');
+            if ((counter.name == '') && Object.keys(counters).length == 1) {
+                $('.delete_counter', $line).addClass('hide');
             } else {
-                $('.reset_counter, .delete_counter', $line).removeClass('hide');
+                $('.delete_counter', $line).removeClass('hide');
             }
         } else {
-            $('.stop_counter, .time_value, .reset_counter, .delete_counter', $line).removeClass('hide');
-            $('.start_counter, time input', $line).addClass('hide');
+            $('.reset_counter, .delete_counter', $line).removeClass('hide');
         }
+    } else {
+        $('.stop_counter, .time_value, .reset_counter, .delete_counter', $line).removeClass('hide');
+        $('.start_counter, time input', $line).addClass('hide');
     }
 
     if (Object.keys(counters).length > 1) {
