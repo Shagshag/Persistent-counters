@@ -146,8 +146,16 @@ function resetCounter() {
 }
 
 function deleteCounter() {
-    if (confirm(document.l10n.getSync('confirm_delete'))) {
     var $line = $(this).parents('tr');
+    var need_confirmation;
+    if (counters[$line.prop('id')].name != '') {
+        need_confirmation = true;
+    } else {
+        var time = getCounterTime(counters[$line.prop('id')]);
+        need_confirmation = (time.days + time.hours + time.minutes + time.seconds > 0);
+    }
+
+    if (!need_confirmation || confirm(document.l10n.getSync('confirm_delete'))) {
         counterDelete(counters[$line.prop('id')]);
         $line.remove();
 
