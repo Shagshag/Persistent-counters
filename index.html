@@ -1,0 +1,95 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>
+      Permanent counters
+    </title>
+    <link rel="stylesheet" href="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
+    <link href='http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css' rel='stylesheet' type='text/css'>
+    <style type="text/css">
+      time input[type="number"] { width: 3.5rem; margin: 0 auto;}
+      input.days { width: 4rem}
+
+      time {display: block;}
+      time>span {width: 5rem; float: left; text-align: center}
+      time>span>span {display: block;}
+    </style>
+  </head>
+  <body>
+    <header>
+
+    </header>
+    <br>
+    <div class="row">
+      <div class="medium-12 columns">
+        <div class="callout primary">
+          <h5>This is just persistent counters</h5>
+          <p>Just add counters below. If you leave the page, counters will keep counting. So you can close this tab and come back later.</p>
+        </div>
+
+        <div id="alert_nojs" class="callout alert">
+          <h5>Localstorage is needed</h5>
+          <p>This tool will not work if localstorage is not enable.</p>
+        </div>
+
+        <div id="main" class="hide">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Counter</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="counters">
+              <tr id="model" class="hide">
+                <td><input class="name" type="text" placeholder="Counter name"/></td>
+                <td class="time">
+                  <time datetime="0d 0h 0m 0s">
+                    <span class="days">
+                      <span class="time_value hide">0</span>
+                      <input class="days" type="number" step="1" min="0" />
+                      <span class="time_label">days</span>
+                    </span>
+                    <span class="hours">
+                      <span class="time_value hide">0</span>
+                      <input class="hours" type="number" step="1" min="0" />
+                      <span class="time_label">hours</span>
+                    </span>
+                    <span class="minutes">
+                      <span class="time_value hide">0</span>
+                      <input class="minutes" type="number" step="1" min="0" />
+                      <span class="time_label">minutes</span>
+                    </span>
+                    <span class="seconds">
+                      <span class="time_value hide">0</span>
+                      <input class="seconds" type="number" step="1" min="0" />
+                      <span class="time_label">seconds</span>
+                    </span>
+                  </time>
+                </td>
+                <td>
+                  <button type="button" class="button success start_counter">Start</button>
+                  <button type="button" class="button stop_counter">Pause</button>
+                  <button type="button" class="button warning reset_counter">Reset</button>
+                  <button type="button" class="button alert delete_counter">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p><button type="button" class="button success add_counter">Add a counter</button></p>
+        </div>
+      </div>
+    </div>
+    <footer>
+    </footer>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
