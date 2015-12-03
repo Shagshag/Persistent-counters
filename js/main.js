@@ -111,36 +111,37 @@ function saveCounters() {
 function nameCounter() {
     var $line = $(this).parents('tr');
     counterName(counters[$line.prop('id')], $(this).val());
+    counterUpdateButtons(counters[$line.prop('id')]);
 }
 
 function startCounter() {
     var $line = $(this).parents('tr');
     counterStart(counters[$line.prop('id')]);
-    $('.start_counter, time input', $line).addClass('hide');
-    $('.stop_counter, .time_value', $line).removeClass('hide');
+    counterUpdateButtons(counters[$line.prop('id')]);
 }
 
 function stopCounter() {
     var $line = $(this).parents('tr');
     counterStop(counters[$line.prop('id')]);
-    $('.stop_counter, .time_value', $line).addClass('hide');
-    $('.start_counter, time input', $line).removeClass('hide');
 
     var time = getCounterTime(counters[$line.prop('id')]);
     $('input.days', $line).val(time.days);
     $('input.hours', $line).val(time.hours);
     $('input.minutes', $line).val(time.minutes);
     $('input.seconds', $line).val(time.seconds);
+    counterUpdateButtons(counters[$line.prop('id')]);
 }
 
 function resetCounter() {
     if (confirm(document.l10n.getSync('confirm_reset'))) {
         var $line = $(this).parents('tr');
         counterReset(counters[$line.prop('id')]);
+
         $('input.days', $line).val(0);
         $('input.hours', $line).val(0);
         $('input.minutes', $line).val(0);
         $('input.seconds', $line).val(0);
+        counterUpdateButtons(counters[$line.prop('id')]);
     }
 }
 
@@ -153,6 +154,8 @@ function deleteCounter() {
         if ($.isEmptyObject(counters))
         {
             $('#main .add_counter').trigger('click');
+        } else {
+            counterUpdateButtons(false);
         }
     }
 }
@@ -166,6 +169,7 @@ function offsetCounter() {
         86400 * parseInt($('input.days', $line).val())
     );
     counterOffset(counters[$line.prop('id')], offset);
+    counterUpdateButtons(counters[$line.prop('id')]);
 }
 
 function addCounter() {
@@ -198,11 +202,43 @@ function counterInitDisplay(counter) {
         $('input.seconds', $line).val(time.seconds);
     } else {
         $('.start_counter, time input', $line).addClass('hide');
-        $('.stop_counter, .time_value', $line).removeClass('hide');
+        $('.stop_counter, .time_value, .reset_counter, .delete_counter', $line).removeClass('hide');
     }
     $line.appendTo($('#counters')).removeClass('hide');
 
+    counterUpdateButtons(counter);
     counterUpdateDisplay(counter);
+}
+
+function counterUpdateButtons(counter) {
+    $('#main .delete_counter').addClass('hide');
+
+    if (counter !== false) {
+        var $line = $('#' + counter.id);
+        if (counter.pause == 1) {
+            $('.stop_counter, .time_value', $line).addClass('hide');
+            $('.start_counter, time input', $line).removeClass('hide');
+
+            var time = getCounterTime(counter);
+            if (time.days + time.hours + time.minutes + time.seconds == 0) {
+                $('.reset_counter', $line).addClass('hide');
+                if ((counter.name == '') && Object.keys(counters).length == 1) {
+                    $('.delete_counter', $line).addClass('hide');
+                } else {
+                    $('.delete_counter', $line).removeClass('hide');
+                }
+            } else {
+                $('.reset_counter, .delete_counter', $line).removeClass('hide');
+            }
+        } else {
+            $('.stop_counter, .time_value, .reset_counter, .delete_counter', $line).removeClass('hide');
+            $('.start_counter, time input', $line).addClass('hide');
+        }
+    }
+
+    if (Object.keys(counters).length > 1) {
+        $('#main .delete_counter').removeClass('hide');
+    }
 }
 
 function countersUpdateDisplay() {
